@@ -12,5 +12,8 @@ export default {
       msg: 'Welcome to Your Vue.js App',
     };
   },
+  beforeCreate() {
+    this.$router.push('/login');
+  },
 };
 </script>
