@@ -31,14 +31,26 @@ export default {
       password: '',
     };
   },
+  computed: {
+    token() {
+      return this.$store.state;
+    },
+  },
   methods: {
     login() {
       const { email, password } = this;
       login(email, password)
         .then((response) => {
           // eslint-disable-next-line no-console
-          console.log(response);
+          // console.log(response);
+          const { token } = response.data;
+          const { _id } = response.data.user;
+          const info = { token, _id };
+          this.setLogin(info);
         });
+    },
+    setLogin(info) {
+      this.$store.dispatch('signin', { info });
     },
   },
 };
