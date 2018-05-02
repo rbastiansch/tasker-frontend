@@ -3,13 +3,15 @@
     <div class="field">
       <label class="label">Email</label>
       <div class="control">
-        <input class="input" type="text" v-model="email" name="email" />
+        <input class="input" type="email" name="email" v-model="email" />
       </div>
     </div>
     <div class="field">
       <label class="label">Password</label>
       <div class="control">
-        <input class="input" type="email" v-model="password" name="password" />
+        <input class="input" type="password" name="password"
+               v-model="password" v-on:keyup.enter="login"
+        />
       </div>
     </div>
     <div class="field">
@@ -41,8 +43,6 @@ export default {
       const { email, password } = this;
       login(email, password)
         .then((response) => {
-          // eslint-disable-next-line no-console
-          // console.log(response);
           const { token } = response.data;
           const { _id } = response.data.user;
           const info = { token, _id };
@@ -51,6 +51,7 @@ export default {
     },
     setLogin(info) {
       this.$store.dispatch('signin', { info });
+      this.$router.push('/');
     },
   },
 };
