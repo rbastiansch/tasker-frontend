@@ -1,12 +1,23 @@
 <template>
   <div id="app" class="container">
+    <Header v-if="nameRoute !== 'login'" />
     <router-view/>
   </div>
 </template>
 
 <script>
+import Header from '@/components/Header';
+
 export default {
   name: 'App',
+  components: {
+    Header,
+  },
+  computed: {
+    nameRoute() {
+      return this.$route.name;
+    },
+  },
 };
 </script>
 

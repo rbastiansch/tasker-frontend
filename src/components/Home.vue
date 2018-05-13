@@ -1,10 +1,17 @@
 <template>
-  <div v-if="hasToken">You are logged successfully</div>
+  <div v-if="hasToken">
+  <ListProject />
+  </div>
 </template>
 
 <script>
+import ListProject from './ListProject';
+
 export default {
   name: 'Home',
+  components: {
+    ListProject,
+  },
   computed: {
     hasToken() {
       return this.$store.state.token;
