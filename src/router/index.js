@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/components/Home';
 import Login from '@/components/Login';
-import CreateProject from '@/components/CreateProject';
+import ProjectItem from '@/components/ProjectItem';
 
 Vue.use(Router);
 
@@ -21,7 +21,13 @@ export default new Router({
     {
       path: '/project/new',
       name: 'new-project',
-      component: CreateProject,
+      component: ProjectItem,
+    },
+    {
+      path: '/project/:id',
+      name: 'edit-project',
+      component: ProjectItem,
+      props: true,
     },
   ],
 });

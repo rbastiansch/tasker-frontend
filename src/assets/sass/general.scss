@@ -1,0 +1,12 @@
+$link-color: hsl(204, 86%, 53%);
+
+.custom-icon {
+  display: inline-block;
+  border: 1px solid $link-color;
+  border-radius: 50%;
+  height: 16px;
+  line-height: 14px;
+  width: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}

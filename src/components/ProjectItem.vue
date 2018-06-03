@@ -14,17 +14,18 @@
         </div>
       </div>
       <div class="field">
-        <button class="button" type="button" v-on:click="createProject">Add</button>
+        <button class="button is-link" type="button" v-on:click="saveProject">Save</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { createProject } from '@/services/projects';
+import { createProject, getProject, updateProject } from '@/services/projects';
 
 export default {
-  name: 'CreateProject',
+  name: 'ProjectItem',
+  props: ['id'],
   data() {
     return {
       title: '',
@@ -40,17 +41,39 @@ export default {
       return this.$store.state.user;
     },
   },
+  mounted() {
+    this.loadProject();
+  },
   methods: {
-    createProject() {
+    saveProject() {
       const { title, description, tasks } = this;
       const user = this.user;
       const data = { title, description, user, tasks };
       const { token } = this;
-      createProject(token, data)
-        .then(() => {
-        }).catch((err) => {
-          // eslint-disable-next-line
-          console.error(err);
+      const { id } = this;
+      if (!id) {
+        createProject(token, data)
+          .then(() => {
+            Object.assign(this.$data, this.$options.data());
+            this.$router.go(-1);
+          }).catch((err) => {
+            // eslint-disable-next-line
+            console.error(err);
+          });
+      } else {
+        updateProject(token, id, data);
+      }
+    },
+    loadProject() {
+      if (!this.id) {
+        return;
+      }
+      const { token, id } = this;
+      getProject(token, id)
+        .then((response) => {
+          const { title, description } = response.data.project;
+          this.title = title;
+          this.description = description;
         });
     },
   },
